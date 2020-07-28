@@ -1,0 +1,15 @@
+---
+apiVersion: "apps/v1"
+kind: "Deployment"
+metadata:
+  labels:
+    name: "mongo"
+  name: "mongo"
+spec:
+  template:
+    spec:
+      containers:
+        - name: "mongo"
+          env:
+            - name: WORKER_CLOUD_ID
+              value: aws

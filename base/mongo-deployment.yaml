@@ -7,7 +7,6 @@ items:
     kind: "Secret"
     metadata:
       name: "mongodb-secret"
-      namespace: "mongo"
     type: "Opaque"
     data:
       database-admin-password: "bW9uZ29hZG1pbg=="
@@ -22,7 +21,6 @@ metadata:
   labels:
     name: "mongo"
   name: "mongo"
-  namespace: "mongo"
 spec:
   ports:
     - port: 27017
@@ -38,7 +36,6 @@ metadata:
   labels:
     name: "mongo"
   name: "mongo"
-  namespace: "mongo"
 spec:
   accessModes:
     - "ReadWriteOnce"
@@ -96,6 +93,12 @@ spec:
                 secretKeyRef:
                   key: keyfile-value
                   name: mongodb-secret
+            - name: KUBERNETES_NAMESPACE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace
+            - name: WORKER_CLOUD_ID
+              value: localhost
           volumeMounts:
             - mountPath: /data/db
               name: mongodb-data
